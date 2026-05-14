@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfBasics"
         mc:Ignorable="d"
+        Loaded="MainWindow_OnLoaded"
         Title="WPF Basics" Height="825" Width="400">
 
     <Border Padding="10">
@@ -19,8 +20,8 @@
                 </Grid.ColumnDefinitions>
 
                 <Button x:Name="ApplyButton" Click="ApplyButton_OnClick" Grid.Column="0" Margin="0 0 10 0">Apply</Button>
-                <Button Grid.Column="1">Reset</Button>
-                <Button Grid.Column="2" Margin="10 0 0 0">Refresh</Button>
+                <Button x:Name="ResetButton" Click="ResetButton_OnClick" Grid.Column="1">Reset</Button>
+                <Button x:Name="RefreshButton" Grid.Column="2" Margin="10 0 0 0">Refresh</Button>
             </Grid>
 
             <!-- PULSE PROPERTIES -->
@@ -73,32 +74,32 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Orientation="Vertical" Grid.Column="0">
-                    <CheckBox Content="Weld" />
-                    <CheckBox Content="Assembly" />
-                    <CheckBox Content="Plasma" />
-                    <CheckBox Content="Laser" />
-                    <CheckBox Content="Purchase" />
+                    <CheckBox x:Name="WeldCheckbox" Checked="Checkbox_OnChecked" Content="Weld" />
+                    <CheckBox x:Name="AssemblyCheckbox" Checked="Checkbox_OnChecked" Content="Assembly" />
+                    <CheckBox x:Name="PlasmaCheckbox" Checked="Checkbox_OnChecked" Content="Plasma" />
+                    <CheckBox x:Name="LaserCheckbox" Checked="Checkbox_OnChecked" Content="Laser" />
+                    <CheckBox x:Name="PurchaseCheckbox" Checked="Checkbox_OnChecked" Content="Purchase" />
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Grid.Column="1">
-                    <CheckBox Content="Lathe" />
-                    <CheckBox Content="Drill" />
-                    <CheckBox Content="Fold" />
-                    <CheckBox Content="Roll" />
-                    <CheckBox Content="Saw" />
+                    <CheckBox x:Name="LatheCheckbox" Checked="Checkbox_OnChecked" Content="Lathe" />
+                    <CheckBox x:Name="DrillCheckbox" Checked="Checkbox_OnChecked" Content="Drill" />
+                    <CheckBox x:Name="FoldCheckbox" Checked="Checkbox_OnChecked" Content="Fold" />
+                    <CheckBox x:Name="RollCheckbox" Checked="Checkbox_OnChecked" Content="Roll" />
+                    <CheckBox x:Name="SawCheckbox" Checked="Checkbox_OnChecked" Content="Saw" />
                 </StackPanel>
             </Grid>
 
             <!-- LENGTH -->
             <TextBlock Text="Length" Margin="0 10 0 0"/>
-            <TextBox Padding="2"/>
+            <TextBox x:Name="LengthText" Padding="2"/>
 
             <!-- MASS -->
             <TextBlock Text="Mass" Margin="0 10 0 0"/>
-            <TextBox Padding="2" IsReadOnly="True" Background="#eee"/>
+            <TextBox x:Name="MassText" Padding="2" IsReadOnly="True" Background="#eee"/>
 
             <!-- FINISH -->
             <TextBlock Text="Finish" Margin="0 10 0 0"/>
-            <ComboBox SelectedIndex="0" Padding="2">
+            <ComboBox x:Name="FinishComboBox" SelectionChanged="FinishComboBox_OnSelectionChanged" SelectedIndex="0" Padding="2">
                 <ComboBoxItem>Painted</ComboBoxItem>
                 <ComboBoxItem>Not Painted</ComboBoxItem>
             </ComboBox>
@@ -112,7 +113,7 @@
 
             <!-- SUPPLIER NAME -->
             <TextBlock Text="Supplier Name" Margin="0 10 0 0"/>
-            <TextBox Padding="2"/>
+            <TextBox x:Name="SupplierNameText" TextChanged="SupplierNameText_OnTextChanged" Padding="2"/>
 
             <!-- SUPPLIER CODE -->
             <TextBlock Text="Supplier Code" Margin="0 10 0 0"/>
@@ -123,7 +124,7 @@
 
             <!-- NOTE -->
             <TextBlock Text="Note"/>
-            <TextBox Padding="2"/>
+            <TextBox x:Name="NoteText" Padding="2"/>
         </StackPanel>
     </Border>
 </Window>
