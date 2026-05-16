@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
+using TreeViewsAndValueConverters.Directory;
 
 namespace TreeViewsAndValueConverters;
 
@@ -19,7 +20,7 @@ public class HeaderToImageConverter : IValueConverter
         }
 
         // Get the name of the file or folder
-        var name = MainWindow.GetFileOrFolderName(path);
+        var name = DirectoryStructure.GetFileOrFolderName(path);
 
         // By default, we assume file
         var image = "Images/file.png";
