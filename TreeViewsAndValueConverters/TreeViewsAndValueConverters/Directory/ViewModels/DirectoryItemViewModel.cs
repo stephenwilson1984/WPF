@@ -12,6 +12,7 @@ public partial class DirectoryItemViewModel : ObservableObject
         FullPath = fullPath;
         Type = type;
         ExpandCommand = new RelayCommand(Expand);
+        ClearChildren();
     }
 
     [ObservableProperty]

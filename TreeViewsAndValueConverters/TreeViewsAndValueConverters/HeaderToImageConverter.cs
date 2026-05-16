@@ -1,39 +1,25 @@
 ﻿using System.Globalization;
-using System.IO;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
-using TreeViewsAndValueConverters.Directory;
+using TreeViewsAndValueConverters.Directory.Data;
 
 namespace TreeViewsAndValueConverters;
 
-[ValueConversion(typeof(string), typeof(BitmapImage))]
+[ValueConversion(typeof(DirectoryItemType), typeof(BitmapImage))]
 public class HeaderToImageConverter : IValueConverter
 {
     public static HeaderToImageConverter Instance = new HeaderToImageConverter();
 
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        // If the path is null, ignore
-        if (value is not string path)
-        {
-            return null;
-        }
+        ArgumentNullException.ThrowIfNull(value);
 
-        // Get the name of the file or folder
-        var name = DirectoryStructure.GetFileOrFolderName(path);
-
-        // By default, we assume file
-        var image = "Images/file.png";
-
-        // If the name is blank, we presume it's a drive as we cannot have a blank file or folder name
-        if (string.IsNullOrEmpty(name))
+        var image = (DirectoryItemType)value switch
         {
-            image = "Images/drive.png";
-        }
-        else if (new FileInfo(path).Attributes.HasFlag(FileAttributes.Directory))
-        {
-            image = "Images/folder-closed.png";
-        }
+            DirectoryItemType.Drive => "Images/drive.png",
+            DirectoryItemType.Folder => "Images/folder-closed.png",
+            _ => "Images/file.png"
+        };
 
         return new BitmapImage(new Uri($"pack://application:,,,/{image}"));
     }
