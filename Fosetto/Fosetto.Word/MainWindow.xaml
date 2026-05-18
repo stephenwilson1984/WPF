@@ -15,6 +15,6 @@
         <vm:WindowViewModel/>
     </Window.DataContext>
 
-    <Grid>
-    </Grid>
+    <StackPanel>
+    </StackPanel>
 </Window>
