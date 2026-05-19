@@ -4,17 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Fosetto.Word"
-        xmlns:vm="clr-namespace:Fosetto.Word.ViewModels"
         mc:Ignorable="d"
+        x:Name="AppWindow"
         WindowStyle="None"
         AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
         Icon="Images/Logo/logo-small.png"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Welcome, Friend!" Height="600" Width="900">
 
-    <Window.DataContext>
-        <vm:WindowViewModel/>
-    </Window.DataContext>
+    <WindowChrome.WindowChrome>
+        <WindowChrome ResizeBorderThickness="{Binding Path=ResizeBorderThickness}"/>
+    </WindowChrome.WindowChrome>
 
-    <StackPanel>
-    </StackPanel>
+    <Grid>
+    </Grid>
 </Window>
