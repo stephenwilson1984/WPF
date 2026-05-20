@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Fosetto.Word"
+        xmlns:vm="clr-namespace:Fosetto.Word.ViewModels"
         mc:Ignorable="d"
         x:Name="AppWindow"
         WindowStyle="None"
@@ -12,8 +13,55 @@
         Icon="Images/Logo/logo-small.png"
         Title="Welcome, Friend!" Height="600" Width="900">
 
+    <Window.DataContext>
+        <ObjectDataProvider ObjectType="vm:WindowViewModel">
+            <ObjectDataProvider.ConstructorParameters>
+                <Window/>
+            </ObjectDataProvider.ConstructorParameters>
+        </ObjectDataProvider>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <Style TargetType="{x:Type local:MainWindow}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Window}">
+                        <!-- Outer border with the drop shadow margin -->
+                        <Border Padding="{Binding OuterMarginThickness}">
+
+                            <!-- Main window outline -->
+                            <Grid>
+
+                                <!-- Window border and drop shadow -->
+                                <Border CornerRadius="{Binding Path=WindowCorderRadius}"
+                                        Background="{StaticResource ForegroundLightBrush}">
+                                    <Border.Effect>
+                                        <DropShadowEffect ShadowDepth="0" Opacity="0.2"/>
+                                    </Border.Effect>
+                                </Border>
+
+                                <!-- The main window content -->
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <!-- Title Bar -->
+                                        <RowDefinition Height="{Binding Path=TitleHeightGridLength}"></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
     <WindowChrome.WindowChrome>
-        <WindowChrome ResizeBorderThickness="{Binding Path=ResizeBorderThickness}"/>
+        <WindowChrome ResizeBorderThickness="{Binding Path=ResizeBorderThickness}"
+                      CaptionHeight="{Binding Path=TitleHeight}"
+                      CornerRadius="0"
+                      GlassFrameThickness="0"/>
     </WindowChrome.WindowChrome>
 
     <Grid>

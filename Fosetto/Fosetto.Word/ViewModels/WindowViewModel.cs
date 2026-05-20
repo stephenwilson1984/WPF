@@ -16,6 +16,11 @@ public partial class WindowViewModel : ObservableObject
     [ObservableProperty]
     public partial int ResizeBorder { get; set; } = 6;
 
+    [ObservableProperty] 
+    public partial int TitleHeight { get; set; } = 35;
+
+    public GridLength TitleHeightGridLength => new(TitleHeight);
+
     public Thickness ResizeBorderThickness => new (ResizeBorder + OuterMarginSize);
 
     public int OuterMarginSize => _window.WindowState == WindowState.Maximized ? 0 : 10;
@@ -29,7 +34,9 @@ public partial class WindowViewModel : ObservableObject
     private void Window_StateChanged(object? sender, EventArgs e)
     {
         OnPropertyChanged(nameof(ResizeBorderThickness));
+        OnPropertyChanged(nameof(OuterMarginSize));
         OnPropertyChanged(nameof(OuterMarginThickness));
+        OnPropertyChanged(nameof(WindowRadius));
         OnPropertyChanged(nameof(WindowCorderRadius));
     }
 }
