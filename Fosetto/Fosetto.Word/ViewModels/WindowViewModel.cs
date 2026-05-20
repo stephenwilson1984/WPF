@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 
@@ -19,7 +18,14 @@ public partial class WindowViewModel : ObservableObject
         MaximizeCommand = new RelayCommand(() => _window.WindowState ^= WindowState.Maximized);
         CloseCommand = new RelayCommand(() => _window.Close());
         MenuCommand = new RelayCommand(() => SystemCommands.ShowSystemMenu(_window, GetMousePosition()));
+
+        // Fix window resize issue
+        var resizer = new WindowResizer(_window);
     }
+
+    public double WindowMinimumWidth { get; set; } = 400;
+
+    public double WindowMinimumHeight { get; set; } = 400;
 
     [ObservableProperty]
     public partial int ResizeBorder { get; set; } = 6;
@@ -31,13 +37,15 @@ public partial class WindowViewModel : ObservableObject
 
     public Thickness ResizeBorderThickness => new (ResizeBorder + OuterMarginSize);
 
+    public Thickness InnerContentPadding => new (ResizeBorder);
+
     public int OuterMarginSize => _window.WindowState == WindowState.Maximized ? 0 : 10;
 
     public Thickness OuterMarginThickness => new (OuterMarginSize);
 
     public int WindowRadius => _window.WindowState == WindowState.Maximized ? 0 : 10;
 
-    public CornerRadius WindowCorderRadius => new (WindowRadius);
+    public CornerRadius WindowCornerRadius => new (WindowRadius);
 
     public RelayCommand MinimizeCommand { get; set; }
 
@@ -60,6 +68,6 @@ public partial class WindowViewModel : ObservableObject
         OnPropertyChanged(nameof(OuterMarginSize));
         OnPropertyChanged(nameof(OuterMarginThickness));
         OnPropertyChanged(nameof(WindowRadius));
-        OnPropertyChanged(nameof(WindowCorderRadius));
+        OnPropertyChanged(nameof(WindowCornerRadius));
     }
 }
