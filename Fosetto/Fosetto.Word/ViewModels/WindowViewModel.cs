@@ -1,5 +1,8 @@
-﻿using System.Windows;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Input;
 
 namespace Fosetto.Word.ViewModels;
 
@@ -11,6 +14,11 @@ public partial class WindowViewModel : ObservableObject
     {
         _window = window;
         _window.StateChanged += Window_StateChanged;
+
+        MinimizeCommand = new RelayCommand(() => _window.WindowState = WindowState.Minimized);
+        MaximizeCommand = new RelayCommand(() => _window.WindowState ^= WindowState.Maximized);
+        CloseCommand = new RelayCommand(() => _window.Close());
+        MenuCommand = new RelayCommand(() => SystemCommands.ShowSystemMenu(_window, GetMousePosition()));
     }
 
     [ObservableProperty]
@@ -19,7 +27,7 @@ public partial class WindowViewModel : ObservableObject
     [ObservableProperty] 
     public partial int TitleHeight { get; set; } = 35;
 
-    public GridLength TitleHeightGridLength => new(TitleHeight);
+    public GridLength TitleHeightGridLength => new(TitleHeight + ResizeBorder);
 
     public Thickness ResizeBorderThickness => new (ResizeBorder + OuterMarginSize);
 
@@ -30,6 +38,21 @@ public partial class WindowViewModel : ObservableObject
     public int WindowRadius => _window.WindowState == WindowState.Maximized ? 0 : 10;
 
     public CornerRadius WindowCorderRadius => new (WindowRadius);
+
+    public RelayCommand MinimizeCommand { get; set; }
+
+    public RelayCommand MaximizeCommand { get; set; }
+
+    public RelayCommand CloseCommand { get; set; }
+
+    public RelayCommand MenuCommand { get; set; }
+
+    private Point GetMousePosition()
+    {
+        Point position = Mouse.GetPosition(_window);
+
+        return new Point(position.X + _window.Left, position.Y + _window.Top);
+    }
 
     private void Window_StateChanged(object? sender, EventArgs e)
     {

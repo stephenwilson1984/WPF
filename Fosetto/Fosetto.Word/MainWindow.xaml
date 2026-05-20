@@ -44,10 +44,33 @@
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <!-- Title Bar -->
-                                        <RowDefinition Height="{Binding Path=TitleHeightGridLength}"></RowDefinition>
-                                        <RowDefinition></RowDefinition>
-                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition Height="{Binding Path=TitleHeightGridLength}"/>
+
+                                        <!-- Drop Shadow -->
+                                        <RowDefinition Height="Auto"/>
+
+                                        <!-- Window Content -->
+                                        <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
+
+                                    <!-- Title Bar -->
+                                    <Grid Grid.Row="0" Panel.ZIndex="1">
+                                        <Grid.ColumnDefinitions>
+                                            <!-- Icon -->
+                                            <ColumnDefinition Width="Auto"/>
+
+                                            <!-- Title -->
+                                            <ColumnDefinition Width="*"/>
+
+                                            <!-- Windows button -->
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- Icon -->
+                                        <Button Style="{StaticResource SystemIconButton}" Command="{Binding Path=MenuCommand}">
+                                            <Image Source="/Images/Logo/logo-small.png"/>
+                                        </Button>
+                                    </Grid>
                                 </Grid>
                             </Grid>
                         </Border>
